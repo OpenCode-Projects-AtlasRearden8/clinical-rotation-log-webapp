@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clinical Rotation Log — Education Only</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header>
+  <h1>🩺 Clinical Rotation Log</h1>
+  <p class="tagline">A study notebook for nursing students. Education only — never medical advice.</p>
+  <div class="disclaimer banner" role="note">
+    <strong>Educational tool — not medical advice.</strong> This app helps YOU track your own learning.
+    It stores nothing about patients. Never enter patient names, dates of birth, room numbers,
+    diagnoses, or any other patient details. Follow your program's policies and HIPAA always.
+  </div>
+</header>
+
+<main id="main">
+  <section aria-labelledby="progress-heading" class="card progress-card">
+    <h2 id="progress-heading">Required-Hours Progress</h2>
+    <label class="needed-label" for="hoursNeeded">State-board hours needed for your program:</label>
+    <input type="number" id="hoursNeeded" min="1" step="1" value="500">
+    <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+         aria-valuenow="0" aria-label="Percent of required hours logged" id="progressBar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <p class="progress-text"><strong id="progressLabel">0 of 500 hours logged (0%)</strong></p>
+    <p id="encouragement" class="muted"></p>
+  </section>
+
+  <section aria-labelledby="form-heading" class="card">
+    <h2 id="form-heading">Log a Rotation Day</h2>
+    <form id="entryForm" novalidate>
+      <div class="grid">
+        <div class="field">
+          <label for="date">Date <span class="req">*</span></label>
+          <input type="date" id="date" name="date" required>
+        </div>
+        <div class="field">
+          <label for="unit">Unit <span class="req">*</span></label>
+          <select id="unit" name="unit" required></select>
+        </div>
+        <div class="field">
+          <label for="hours">Hours <span class="req">*</span></label>
+          <input type="number" id="hours" name="hours" min="0.25" max="24" step="0.25" required>
+        </div>
+        <div class="field">
+          <label for="preceptor">Preceptor initials only</label>
+          <input type="text" id="preceptor" name="preceptor" maxlength="6" placeholder="e.g. JMK">
+          <small>No full names — de-identification enforced.</small>
+        </div>
+      </div>
+
+      <fieldset class="skills-box">
+        <legend>Skills practiced (checklist)</legend>
+        <div id="skillsChecklist" class="skills-grid"></div>
+      </fieldset>
+
+      <div class="field">
+        <label for="reflection">One-line reflection (240 chars max)</label>
+        <input type="text" id="reflection" name="reflection" maxlength="240"
+               placeholder="e.g. First time doing dressing change solo — felt shaky; slow down with supplies.">
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" id="saveBtn">Save Entry</button>
+        <button type="button" id="clearBtn" class="secondary">Clear Form</button>
+      </div>
+      <div id="formMsg" class="form-msg" role="status" aria-live="polite"></div>
+    </form>
+  </section>
+
+  <section aria-labelledby="log-heading" class="card">
+    <h2 id="log-heading">Your Log</h2>
+    <div class="log-actions">
+      <input type="search" id="searchBox" placeholder="Filter by unit or reflection…" aria-label="Filter entries">
+      <button type="button" id="exportBtn" class="secondary">Export JSON (local file)</button>
+      <label class="file-label" for="importFile">Import JSON</label>
+      <input type="file" id="importFile" accept="application/json,.json">
+    </div>
+    <div id="entriesList"></div>
+    <p id="emptyMsg" class="muted">No entries yet. Save your first rotation day above — everything stays on this device.</p>
+  </section>
+
+  <section aria-labelledby="summary-heading" class="card">
+    <h2 id="summary-heading">End-of-Rotation Summary (Printable)</h2>
+    <p class="muted">Generates a de-identified summary with placeholders only — fill in names by hand
+       after printing. No patient details, ever.</p>
+    <button type="button" id="printBtn">Open Printable Summary</button>
+  </section>
+
+  <section class="card disclaimer" aria-labelledby="fineprint-heading">
+    <h2 id="fineprint-heading" class="small-heading">Important Notes &amp; Disclaimers</h2>
+    <ul>
+      <li><strong>Education only.</strong> This is a personal study log, not a medical, clinical,
+          legal, or compliance tool, and never medical advice.</li>
+      <li><strong>No patient data.</strong> Preceptor field takes initials only. Do not enter any
+          patient information; you are responsible for keeping logs de-identified per HIPAA
+          and your school's policy.</li>
+      <li><strong>Verify hours independently.</strong> Totals here are for your planning convenience;
+          your school and your state board of nursing are the official records.</li>
+      <li><strong>Local-only.</strong> All data stays in this browser's localStorage. Clearing
+          browser data erases your log — use Export JSON for backups.</li>
+        <li><strong>Zero deps.</strong> Plain HTML/JS/CSS. No accounts, no network calls, no tracking.</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <p>Clinical Rotation Log · by <a href="https://dylanasdale.github.io" rel="noopener">Asdale Dynamics, LLC</a> · MIT License · Education only, never medical advice.</p>
+</footer>
+
+<script src="logic.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
